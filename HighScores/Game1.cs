@@ -51,7 +51,7 @@ namespace HighScores
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            _font = Content.Load<SpriteFont>("fonts\font");
+            _font = Content.Load<SpriteFont>("fonts/font");
         }
 
         protected override void Update(GameTime gameTime)
@@ -64,13 +64,13 @@ namespace HighScores
             base.Update(gameTime);
         }
 
-        protected override void Draw(GameTime gameTime)
+        protected async override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            Task<List<HighScore>> scores = _highScores.GetAsync(false);
-            List<HighScore> sorted = scores.Result.OrderByDescending(o => o.Score).ToList();
+            List<HighScore> scores = await _highScores.GetAsync(false);
+            List<HighScore> sorted = scores.OrderByDescending(o => o.Score).ToList();
 
             _spriteBatch.Begin();
             Vector2 position = new Vector2();
